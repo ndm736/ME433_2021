@@ -20,3 +20,13 @@ void initSPI() {
     SPI1CONbits.MSTEN = 1; // master operation
     SPI1CONbits.ON = 1; // turn on spi 
 }
+
+
+// send a byte via spi and return the response
+unsigned char spi_io(unsigned char o) {
+  SPI1BUF = o;
+  while(!SPI1STATbits.SPIRBF) { // wait to receive the byte
+    ;
+  }
+  return SPI1BUF;
+}
